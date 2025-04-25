@@ -1,8 +1,80 @@
-Docker Threat Modeling
+## Docker Threat Modeling
 Given Docker's system components and the STRIDE framework, identify five potential threats that may arise.
 
-Kubernetes Threat Modeling
+### Spoofing
+#### Docker client
+I'm concerned about the communication between the Docker client and the Docker deamon. 
+If the traffic is not encrypted properly, communication could be intercepted and an attacker could impersonate another user. 
+
+### Tampering
+#### Docker host
+I'm worried about the integrity of the Docker host machine. If the Docker client is compromised, 
+an attacker could modify the Dockerfile that's used to build the Docker image.
+
+#### Docker registry
+I'm also worried about the integrity of the Docker registry. If an attacker gains access to the repository's resources, images could be tampered with.
+Any dependencies from other repositories could be tampered with too. 
+
+### Repudiation
+#### Docker client
+If the Docker client is compromised by an attacker, changes can be made on behalf of another legitimate user.
+
+#### Docker registry
+The Docker registry may be vulnerable to attacks too, 
+where an attacker gains access to and makes changes to Docker images on behalf of other users. 
+
+### Information Disclosure
+#### Docker host
+I'm concered about extensive or incorrect user permissions on the file system of the Docker host machine.
+Therefore sensitive information could be exposed. 
+
+#### Docker client
+Docker client may expose sensitive information such as secrets that are hardcoded in the configuration files. 
+
+### Denial of Service
+#### Docker host
+On the Docker host machine an attacker could spawn a very large amount of processes leading to resource starvation, 
+if the respective containers are not restricted in terms of how many processes they can generate. 
+
+### Elevation of privilege
+#### Docker client
+I'm concerned about the escalation of privileges using the Docker client. If a user is not defined in the Dockerfile,
+the container defaults to run as root. An attacker could also use the privileged flag. 
+
+
+## Kubernetes Threat Modeling
 Given Kubernetes' system components and the STRIDE framework, identify five potential threats that may arise.
+
+### Spoofing
+#### Control plane
+If the calls from the client to the API server is not encrypted, the communication could be intercepted by an attacker.
+
+### Tampering
+#### Control plane
+An attacker could modify the data stored in etcd malicously affecting vital system-level configurations. 
+
+### Repudiation
+#### Control plane
+An attacker could make unauthorized calls to the Kube API server. 
+
+### Information Disclosure
+#### Kube Node Runtime
+On the worker node kube-proxy may expose sensitive information, if an attacker uses a kubeconfig file.
+
+#### Control plane
+Sensitive data stored in the etcd-database such as secrets may be exposed 
+because the data is not encrypted at rest or during transport. An attacker could read unencrypted data or intercept the communication. 
+
+### Denial of Service
+#### Control plane
+An attacker could generate a high amount of calls to the API server. 
+
+#### Kube Node Runtime
+An attacker could also inject malicious configuration leading to over-allocating cpu and memory and resource starvation. 
+
+### Elevation of privilege
+#### Kube Node Runtime
+Kubelet is subject to privilege escalation. An attacker could take advantage of overly permissive RBAC roles or of containers running as root. 
 
 Docker-bench Run Results and Analysis
 From the failed findings, select and document 3 findings from the Docker-bench results that you want to harden based on the 5 attack surface areas you identified in Step 1. At least 1 of the 3 hardened findings should be different from the ones mentioned in the exercise (i.e. 5.10, 5.14, and 5.22).
