@@ -2,7 +2,7 @@
 
 sudo zypper update
 
-## Install Go ##
+## Install Go ## - done
 
 sudo zypper addrepo https://download.opensuse.org/repositories/devel:/languages:/go/15.6/devel:languages:go.repo
 sudo zypper refresh
@@ -49,7 +49,7 @@ sudo systemctl enable docker
 sudo gpasswd -a "${USER}" docker
 sudo reboot
 
-## Install git ##
+## Install git ## - done
 
 sudo zypper in git
 
