@@ -62,7 +62,7 @@ docker build . -t opensuse/leap:latest -m 256mb --no-cache=true
 ## Using docker bench ##
 
 git clone https://github.com/aquasecurity/docker-bench.git
-go build -o docker-bench
+go build -o docker-bench 
 ./docker-bench help
 ./docker-bench --include-test-output >docker-bench.txt
 cat docker-bench.txt | grep FAIL

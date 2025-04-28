@@ -76,5 +76,13 @@ An attacker could also inject malicious configuration leading to over-allocating
 #### Kube Node Runtime
 Kubelet is subject to privilege escalation. An attacker could take advantage of overly permissive RBAC roles or of containers running as root. 
 
-Docker-bench Run Results and Analysis
+## Docker-bench Run Results and Analysis
 From the failed findings, select and document 3 findings from the Docker-bench results that you want to harden based on the 5 attack surface areas you identified in Step 1. At least 1 of the 3 hardened findings should be different from the ones mentioned in the exercise (i.e. 5.10, 5.14, and 5.22).
+
+### Finding 5.11: Ensure that the memory usage for container is limited (Manual)
+
+### Finding 5.15 Ensure that the 'on-failure' container restart policy is set to '5' (Manual)
+
+### Find 2.14 Ensure containers are restricted from acquiring new privileges
+
+
