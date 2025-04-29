@@ -1,14 +1,20 @@
-## How will you test the changes? 
+## How will you test the changes?
 At first I'll apply the hardening steps on a non-production environment. 
-Ideally its setup should be identical to the production-environment. 
-Then I'll test the changes on the non-production environment.
+Ideally its setup should be identical to the production-environment. Depending on the specific harding steps that have been carried out, the cluster need to be provisioned again. 
+Then I'll verify the changes by running kube-bench once again. Now the tests should pass particularily for the issues we have addressed during the hardening steps. 
+As a best practice we can implement regular checks with CronJobs or schedulers to make sure that we notice changes on the cluster that are relevant from a security perspective. 
+
 
 ## How will you ensure the changes don't negatively affect your cluster? 
 
 The hardening steps will be carried out on the non-production system. 
 We can monitor metrics using techniques such as Prometheus and Grafana. 
-By reading the data we can if the cluster is still fully operational.
+By reading the data we can see if the cluster is still fully operational.
 These data could be:
 - health of the nodes
 - health of the pods
 - check for events and logs that indicate errors
+
+Only if the changes are effective and the cluster is still fully operational, the changes can be rolled out on the production systems.  
+Sometimes problems due to particular hardening steps don’t materialize of there is no load on the testing systems. 
+To make sure that we notice such issues, we can use canary testing where we split some traffic from the production system to to test system. 
