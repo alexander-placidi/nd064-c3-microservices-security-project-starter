@@ -1,0 +1,14 @@
+## How will you test the changes? 
+At first I'll apply the hardening steps on a non-production environment. 
+Ideally its setup should be identical to the production-environment. 
+Then I'll test the changes on the non-production environment.
+
+## How will you ensure the changes don't negatively affect your cluster? 
+
+The hardening steps will be carried out on the non-production system. 
+We can monitor metrics using techniques such as Prometheus and Grafana. 
+By reading the data we can if the cluster is still fully operational.
+These data could be:
+- health of the nodes
+- health of the pods
+- check for events and logs that indicate errors
