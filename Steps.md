@@ -110,6 +110,10 @@ docker push <your_username>/udacitysecurity:hardened-v1.0
 
 Display sha: docker images --digests | grep <your_username>/udacitysecurity:hardened-v1.0
 
+#### Dcoker run ####
+
+docker run --detach --memory 256mb --restart=on-failure:5 --security-opt=no-new-privileges --pids-limit 100 --read-only -i --tty opensuse/hardened-v1 /bin/bash
+
 ## Setup Docker notary server ##
 
 git clone https://github.com/theupdateframework/notary.git
