@@ -1,0 +1,31 @@
+1. Incident commander name: Alexander Placidi
+2. Executive Summary of what happened: 
+We found that an attacker created three pods in the default namespace.
+These are
+cryptotonight
+minergate
+moneropool
+These pods are crypto-mining software. 
+
+3. Summary of what was affected:
+The attacker was able to get control of the cluster and inject workloads.
+Usually attackers look for computing resources for running malicious workloads such as cryptomining. 
+The attack affected the kubernetes cluster by using computing resources. 
+
+4. Summary of the impact:
+The cryptomining pods that were injected by the attacker consume a significant amount of computing resources.
+Under certain circumstances this can cause the other workloads to starve or crash because of the lack of resources.
+
+5. Summary of the remediation steps:
+The pods can be evicted by issueing the following command:
+kubectl delete pod <pod_name> --grace-period=0 --force>
+
+After evicting the pods, the administrator has to check the metrics in the Grafana dashboards in order to verify
+that the usage of cpu and memory resources is within normal parameters again. 
+
+6. Summary of lessons learned:
+In order to prevent such attacks for the future, we should implement the following measures:
+- use admission controller to allow only certain images to be imported and started within the pods
+- use Grafana dashboards and alerts in order to get notified if unusual activity is happening
+- use Falco and export kernel-level metrics to Grafana in order to get notified 
+  if unusual activity is happening on the host machine
